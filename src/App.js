@@ -1,7 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [teste, setTeste] = useState("");
+
+  useEffect(() => {
+    if (teste === "") {
+      async function fetchData() {
+        try {
+          const response = await fetch(
+            "http://localhost.localdomain:5000/posts"
+          );
+          const responseContent = await response.json();
+          console.log(responseContent);
+          setTeste(responseContent);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      fetchData();
+    }
+  }, [teste]);
+
   return (
     <div className="App">
       <header className="App-header">
