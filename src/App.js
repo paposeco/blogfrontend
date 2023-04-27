@@ -1,45 +1,26 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Blog from "./components/blog/blog.js";
+import Post from "./components/blog/post.js";
+import EditorPost from "./components/editing/post.js";
+import NewPost from "./components/editing/newpost.js";
+import Login from "./components/editing/login.js";
+import EditPost from "./components/editing/editpost";
+import EditorBlog from "./components/editing/index.js";
 
 function App() {
-  const [teste, setTeste] = useState("");
-
-  useEffect(() => {
-    if (teste === "") {
-      async function fetchData() {
-        try {
-          const response = await fetch(
-            "http://localhost.localdomain:5000/posts"
-          );
-          const responseContent = await response.json();
-          console.log(responseContent);
-          setTeste(responseContent);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-      fetchData();
-    }
-  }, [teste]);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Blog />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/post/:id" element={<Post />} />
+      <Route path="/editor/posts" element={<EditorBlog />} />
+      <Route path="/editor/posts/:id" element={<EditorPost />} />
+      <Route path="/editor/newpost" element={<NewPost />} />
+      <Route path="/editor/login" element={<Login />} />
+      <Route path="/editor/posts/:postid" element={<EditPost />} />
+    </Routes>
   );
 }
 
