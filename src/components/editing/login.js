@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = function() {
   const [username, setUsername] = useState("");
@@ -16,6 +17,7 @@ const Login = function() {
   //   }
   //   fetchData();
   // }, []);
+  const navigate = useNavigate();
   const handlerOfChange = function(event) {
     if (event.target.id === "email") {
       setUsername(event.target.value);
@@ -36,6 +38,7 @@ const Login = function() {
       );
       const responseData = await response.json();
       localStorage.setItem("token", responseData.token);
+      navigate("/editor/posts");
     } catch (err) { }
   };
   return (

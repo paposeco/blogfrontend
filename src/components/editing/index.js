@@ -1,7 +1,48 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import PostListItem from "../common/postlistitem";
 
 const Posts = function() {
-  return <div></div>;
+  const [posts, setPosts] = useState([]);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [fetchStatus, setFetchStatus] = useState(true);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchPosts = async function() {
+      const response = await fetch(
+        "http://localhost.localdomain:5000/editor/posts",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const responseData = await response.json();
+        setPosts(responseData.posts);
+      } else if (response.status === 401) {
+        navigate("/editor/login");
+      } else {
+        setFetchStatus(false);
+      }
+    };
+
+    fetchPosts();
+  }, [token]);
+  // list posts
+  // link to new post
+  return (
+    <div>
+      <Link to="/editor/newpost">New post</Link>
+      <ul>
+        {posts.map((post) => (
+          <PostListItem postinfo={post} />
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Posts;
