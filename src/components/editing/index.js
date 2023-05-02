@@ -9,22 +9,24 @@ const Posts = function() {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchPosts = async function() {
-      const response = await fetch(
-        "http://localhost.localdomain:5000/editor/posts",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      try {
+        const response = await fetch(
+          "http://localhost.localdomain:5000/editor/posts",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          const responseData = await response.json();
+          setPosts(responseData.posts);
+        } else if (response.status === 401) {
+          navigate("/editor/login");
         }
-      );
-      if (response.status === 200) {
-        const responseData = await response.json();
-        setPosts(responseData.posts);
-      } else if (response.status === 401) {
-        navigate("/editor/login");
-      } else {
+      } catch (err) {
         setFetchStatus(false);
       }
     };

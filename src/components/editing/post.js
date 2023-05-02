@@ -14,20 +14,22 @@ const PostOnEditor = function() {
   }, [location]);
 
   const fetchData = async function() {
-    const response = await fetch(
-      `http://localhost.localdomain:5000/editor/posts/${postID}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+    try {
+      const response = await fetch(
+        `http://localhost.localdomain:5000/editor/posts/${postID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const responseData = await response.json();
+        setPostContent(responseData);
       }
-    );
-    if (response.status === 200) {
-      const responseData = await response.json();
-      setPostContent(responseData);
-    }
+    } catch (err) { }
   };
 
   useEffect(() => {
@@ -38,8 +40,35 @@ const PostOnEditor = function() {
 
   const deleteComment = async function(event) {
     if (event.target.dataset.commentid !== undefined) {
+      try {
+        const response = await fetch(
+          `http://localhost.localdomain:5000/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              token: token,
+            }),
+          }
+        );
+        if (response.status === 200) {
+          fetchData();
+        }
+      } catch (err) { }
+    }
+  };
+
+  const editBlogPost = function() {
+    navigate(`/editor/posts/${postID}/edit`, { state: postContent });
+  };
+
+  const deleteBlogPost = async function() {
+    try {
       const response = await fetch(
-        `http://localhost.localdomain:5000/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
+        `http://localhost.localdomain:5000/editor/posts/${postID}`,
         {
           method: "DELETE",
           headers: {
@@ -52,33 +81,9 @@ const PostOnEditor = function() {
         }
       );
       if (response.status === 200) {
-        fetchData();
+        navigate("/editor/posts");
       }
-    }
-  };
-
-  const editBlogPost = function() {
-    navigate(`/editor/posts/${postID}/edit`, { state: postContent });
-  };
-
-  const deleteBlogPost = async function() {
-    const response = await fetch(
-      `http://localhost.localdomain:5000/editor/posts/${postID}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          token: token,
-        }),
-      }
-    );
-
-    if (response.status === 200) {
-      navigate("/editor/posts");
-    }
+    } catch (err) { }
   };
   // need to figure out how to keep blog content formatting
 

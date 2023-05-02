@@ -1,27 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Comment = function(props) {
-  const [token, setToken] = useState(localStorage.getItem("token"));
-  const navigate = useNavigate();
-  // const deleteComment = async function() {
-  //   const response = await fetch(
-  //     `http://localhost.localdomain:5000/editor/posts/${props.postid}/comments/${props.commentinfo._id}`,
-  //     {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: JSON.stringify({
-  //         token: token,
-  //       }),
-  //     }
-  //   );
-  //   if (response.status === 200) {
-  //     navigate(`/editor/posts/${props.postid}`);
-  //   }
-  // };
+  const location = useLocation();
+  const editorOrBlog = location.pathname.includes("editor") ? true : false;
 
   return (
     <li key={props.commentinfo._id}>
@@ -39,12 +21,14 @@ const Comment = function(props) {
         </p>
       )}
       <p>{props.commentinfo.content}</p>
-      <button
-        onClick={props.deleteComment}
-        data-commentid={props.commentinfo._id}
-      >
-        Delete comment
-      </button>
+      {editorOrBlog ? (
+        <button
+          onClick={props.deleteComment}
+          data-commentid={props.commentinfo._id}
+        >
+          Delete comment
+        </button>
+      ) : null}
     </li>
   );
 };

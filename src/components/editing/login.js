@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = function() {
+const Login = function(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await fetch("http://localhost.localdomain:5000/posts");
-  //       const responseContent = await response.json();
-  //       console.log(responseContent);
-  //       setToken(responseContent);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
   const navigate = useNavigate();
   const handlerOfChange = function(event) {
     if (event.target.id === "email") {
@@ -38,6 +25,8 @@ const Login = function() {
       );
       const responseData = await response.json();
       localStorage.setItem("token", responseData.token);
+      localStorage.setItem("author", responseData.author);
+      props.loggedin();
       navigate("/editor/posts");
     } catch (err) { }
   };
