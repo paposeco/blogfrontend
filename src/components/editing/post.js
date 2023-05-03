@@ -7,6 +7,8 @@ const PostOnEditor = function() {
   const navigate = useNavigate();
   const [postID, setPostID] = useState("");
   const [postContent, setPostContent] = useState();
+  const [dataFetched, setDataFetched] = useState(false);
+  const [comments, setComments] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
@@ -27,22 +29,35 @@ const PostOnEditor = function() {
       );
       if (response.status === 200) {
         const responseData = await response.json();
-        setPostContent(responseData);
+        setComments(responseData.comments);
+        createParagraphs(responseData.post);
       }
     } catch (err) { }
   };
 
+  const createParagraphs = function(postcontent) {
+    const paragraphArray = postcontent.content.split("\n");
+    let cleanArray = [];
+    paragraphArray.forEach((element) => {
+      if (element !== "") {
+        cleanArray.push(element);
+      }
+    });
+    setPostContent(cleanArray);
+  };
+
   useEffect(() => {
-    if (postID !== "") {
+    if (!dataFetched) {
       fetchData();
+      setDataFetched(true);
     }
-  }, [postID]);
+  }, [dataFetched]);
 
   const deleteComment = async function(event) {
     if (event.target.dataset.commentid !== undefined) {
       try {
         const response = await fetch(
-          `http://localhost.localdomain:5000/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
+          `httpents,-caldomain:5000/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
           {
             method: "DELETE",
             headers: {
@@ -85,27 +100,25 @@ const PostOnEditor = function() {
       }
     } catch (err) { }
   };
-  // need to figure out how to keep blog content formatting
-
-  //draft or publish selector
-  //edit button
 
   if (postContent !== undefined) {
     return (
       <div>
         <div>
-          <h2>{postContent.post.title}</h2>
+          <h2>{postContent.title}</h2>
           <div>
-            <p>{postContent.post.post_timestamp}</p>
+            <p>{postContent.post_timestamp}</p>
           </div>
-          <p>{postContent.post.content}</p>
+          {postContent.map((para) => (
+            <p>{para}</p>
+          ))}
           <button onClick={editBlogPost}>Edit</button>
           <button onClick={deleteBlogPost}>Delete</button>
         </div>
         <div>
           <h3>Comments</h3>
           <ul>
-            {postContent.post.comments.map((comment) => (
+            {comments.map((comment) => (
               <Comment commentinfo={comment} deleteComment={deleteComment} />
             ))}
           </ul>

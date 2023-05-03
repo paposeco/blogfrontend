@@ -6,6 +6,7 @@ const Posts = function() {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [fetchStatus, setFetchStatus] = useState(true);
+  const [dataFetched, setDataFetched] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchPosts = async function() {
@@ -30,11 +31,12 @@ const Posts = function() {
         setFetchStatus(false);
       }
     };
+    if (!dataFetched) {
+      fetchPosts();
+      setDataFetched(true);
+    }
+  }, [token, dataFetched, navigate]);
 
-    fetchPosts();
-  }, [token]);
-  // list posts
-  // link to new post
   return (
     <div>
       <Link to="/editor/newpost">New post</Link>

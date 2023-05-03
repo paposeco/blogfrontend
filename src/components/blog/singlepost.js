@@ -6,10 +6,10 @@ const SinglePost = function() {
   const location = useLocation();
   const postID = location.pathname.substring(12);
   const navigate = useNavigate();
-  const [post, setPost] = useState();
+  const [post, setPost] = useState([]);
+  const [comments, setComments] = useState([]);
   const [fetchingData, setFetchingData] = useState(true);
   const [showCommentBox, setShowCommentBox] = useState(false);
-
   const [readerUsername, setReaderUsername] = useState("");
   const [readerEmail, setReaderEmail] = useState("");
   const [comment, setComment] = useState("");
@@ -31,12 +31,26 @@ const SinglePost = function() {
         if (response.status === 200) {
           const responseData = await response.json();
           setFetchingData(false);
-          setPost(responseData);
+          setComments(responseData.comments);
+          createParagraphs(responseData.post);
         }
       } catch (err) { }
     };
-    fetchData();
-  }, [postID]);
+    if (fetchingData) {
+      fetchData();
+    }
+  }, [postID, fetchingData]);
+
+  const createParagraphs = function(postcontent) {
+    const paragraphArray = postcontent.content.split("\n");
+    let cleanArray = [];
+    paragraphArray.forEach((element) => {
+      if (element !== "") {
+        cleanArray.push(element);
+      }
+    });
+    setPost(cleanArray);
+  };
 
   const handlerOfChange = function(event) {
     if (event.target.id === "readerusername") {
@@ -65,7 +79,7 @@ const SinglePost = function() {
     }
     try {
       const response = await fetch(
-        `http://localhost.localdomain:5000/posts/${postID}/newcomment`,
+        `http:localhost.localdomain:5000/posts/${postID}/newcomment`,
         {
           method: "POST",
           headers: {
@@ -85,8 +99,10 @@ const SinglePost = function() {
   } else {
     return (
       <div>
-        <h2>{post.post.title}</h2>
-        <p>{post.post.content}</p>
+        <h2>{post.title}</h2>
+        {post.map((para) => (
+          <p>{para}</p>
+        ))}
 
         <button onClick={showbox}>Add comment</button>
         {showCommentBox ? (
@@ -119,10 +135,9 @@ const SinglePost = function() {
             <button type="submit">Save</button>
           </form>
         ) : null}
-
         <h3>Comments</h3>
         <ul>
-          {post.post.comments.map((comment) => (
+          {comments.map((comment) => (
             <Comment commentinfo={comment} />
           ))}
         </ul>

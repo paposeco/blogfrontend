@@ -39,8 +39,6 @@ const EditPost = function() {
       );
       if (response.status === 201) {
         navigate("/editor/posts/");
-      } else {
-        const responseData = await response.json();
       }
     } catch (err) {
       console.log(err);

@@ -5,6 +5,7 @@ const NewPost = function() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [fetchStatus, setFetchStatus] = useState(true);
 
+  const [dataFetched, setDataFetched] = useState(false);
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [postStatus, setPostStatus] = useState(true);
@@ -25,7 +26,6 @@ const NewPost = function() {
             },
           }
         );
-        /* const responseData = await response.json(); */
         if (response.status !== 200) {
           if (response.status === 401) {
             navigate("/editor/login");
@@ -40,9 +40,12 @@ const NewPost = function() {
     if (!token) {
       navigate("/editor/login");
     } else {
-      fetchData();
+      if (!dataFetched) {
+        fetchData();
+        setDataFetched(true);
+      }
     }
-  }, [token]);
+  }, [token, dataFetched, navigate]);
   const handlerOfSubmit = async function(event) {
     event.preventDefault();
 

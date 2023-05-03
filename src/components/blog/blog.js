@@ -4,6 +4,7 @@ import Post from "./post";
 const Blog = function() {
   const [posts, setPosts] = useState([]);
   const [fetchfailed, setfetchfailed] = useState(false);
+  const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
     const fetchData = async function() {
@@ -25,8 +26,12 @@ const Blog = function() {
         setfetchfailed(true);
       }
     };
-    fetchData();
-  }, [posts]);
+    if (!dataFetched) {
+      fetchData();
+      setDataFetched(true);
+    }
+  }, [dataFetched]);
+
   if (fetchfailed) {
     return <div>Fetching failed.</div>;
   } else {
