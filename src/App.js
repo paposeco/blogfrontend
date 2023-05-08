@@ -1,4 +1,3 @@
-import "./App.css";
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Blog from "./components/blog/blog.js";
@@ -10,6 +9,7 @@ import EditPost from "./components/editing/editpost";
 import EditorBlog from "./components/editing/index.js";
 import Navigation from "./components/common/header";
 import Logout from "./components/editing/logout";
+import Footer from "./components/common/footer";
 
 function App() {
   const [logged, setlogged] = useState(false);
@@ -31,7 +31,7 @@ function App() {
   }, [author]);
 
   return (
-    <div>
+    <div className="content">
       <Navigation author={author} logged={logged} />
       <Routes>
         <Route path="/" element={<Blog />} />
@@ -47,6 +47,7 @@ function App() {
           element={<Logout loggedout={loggedout} />}
         />
       </Routes>
+      <Footer />
     </div>
   );
 }
