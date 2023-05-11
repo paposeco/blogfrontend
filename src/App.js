@@ -31,22 +31,24 @@ function App() {
   }, [author]);
 
   return (
-    <div className="content">
+    <div className="content mt-2 mb-2 min-vh-100 d-flex flex-column">
       <Navigation author={author} logged={logged} />
-      <Routes>
-        <Route path="/" element={<Blog />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/posts/:postid" element={<SinglePost />} />
-        <Route path="/editor/posts" element={<EditorBlog />} />
-        <Route path="/editor/posts/:postid" element={<PostOnEditor />} />
-        <Route path="/editor/newpost" element={<NewPost />} />
-        <Route path="/editor/login" element={<Login loggedin={loggedin} />} />
-        <Route path="/editor/posts/:postid/edit" element={<EditPost />} />
-        <Route
-          path="/editor/logout"
-          element={<Logout loggedout={loggedout} />}
-        />
-      </Routes>
+      <div className="mt-4 mx-2 flex-grow-1 d-flex flex-column">
+        <Routes>
+          <Route path="/" element={<Blog />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/posts/:postid" element={<SinglePost />} />
+          <Route path="/editor/posts" element={<EditorBlog />} />
+          <Route path="/editor/posts/:postid" element={<PostOnEditor />} />
+          <Route path="/editor/newpost" element={<NewPost />} />
+          <Route path="/editor/login" element={<Login loggedin={loggedin} />} />
+          <Route path="/editor/posts/:postid/edit" element={<EditPost />} />
+          <Route
+            path="/editor/logout"
+            element={<Logout loggedout={loggedout} />}
+          />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );

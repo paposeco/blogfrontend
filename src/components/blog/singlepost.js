@@ -7,6 +7,7 @@ const SinglePost = function() {
   const postID = location.pathname.substring(12);
   const navigate = useNavigate();
   const [post, setPost] = useState([]);
+  const [fullPost, setFullPost] = useState();
   const [comments, setComments] = useState([]);
   const [fetchingData, setFetchingData] = useState(true);
   const [showCommentBox, setShowCommentBox] = useState(false);
@@ -33,6 +34,7 @@ const SinglePost = function() {
           setFetchingData(false);
           setComments(responseData.comments);
           createParagraphs(responseData.post);
+          setFullPost(responseData.post);
         }
       } catch (err) { }
     };
@@ -98,13 +100,25 @@ const SinglePost = function() {
     return <div>Fetching data</div>;
   } else {
     return (
-      <div>
-        <h2>{post.title}</h2>
-        {post.map((para) => (
-          <p>{para}</p>
-        ))}
+      <div className="d-flex flex-column flex-grow-1">
+        <div className="flex-grow-1">
+          <h2>{fullPost.title}</h2>
+          <p className="text-muted">
+            <i className="las la-calendar"></i>
+            <span> </span>Published {fullPost.post_timestamp}
+          </p>
+          <div className="my-4">
+            {post.map((para) => (
+              <p>{para}</p>
+            ))}
+          </div>
+        </div>
+        <div>
+          <button onClick={showbox} className="btn btn-primary">
+            Add comment
+          </button>
+        </div>
 
-        <button onClick={showbox}>Add comment</button>
         {showCommentBox ? (
           <form onSubmit={handlerOfSubmit}>
             <label htmlFor="readerusername">Username:</label>
@@ -135,8 +149,8 @@ const SinglePost = function() {
             <button type="submit">Save</button>
           </form>
         ) : null}
-        <h3>Comments</h3>
-        <ul>
+        <h3 className="mt-4 mb-4">Comments</h3>
+        <ul className="list-group-flush">
           {comments.map((comment) => (
             <Comment commentinfo={comment} />
           ))}

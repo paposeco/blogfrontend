@@ -12,9 +12,11 @@ const PostListItem = function(props) {
   }, [props]);
 
   return (
-    <li key={props.postinfo._id}>
+    <li className="list-group-item py-1" key={props.postinfo._id}>
+      <i className="las la-file-alt"></i>
+      <span> </span>
       <Link to={props.postinfo.urleditor}>{props.postinfo.title}</Link>{" "}
-      {draftStatus}
+      <span className="text-muted">{draftStatus}</span>
     </li>
   );
 };

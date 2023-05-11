@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Comment from "../common/comment";
 
 const PostOnEditor = function() {
-  let location = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
-  const [postID, setPostID] = useState("");
+  const [postID, setPostID] = useState(location.pathname.substring(14));
   const [postContent, setPostContent] = useState();
   const [dataFetched, setDataFetched] = useState(false);
   const [comments, setComments] = useState([]);
@@ -131,3 +131,5 @@ const PostOnEditor = function() {
 };
 
 export default PostOnEditor;
+
+//copy formatting from blog post singlepost

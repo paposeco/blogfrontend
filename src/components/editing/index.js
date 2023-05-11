@@ -37,10 +37,16 @@ const Posts = function() {
     }
   }, [token, dataFetched, navigate]);
 
+  const gotoeditor = function(event) {
+    navigate("/editor/newpost");
+  };
   return (
     <div>
-      <Link to="/editor/newpost">New post</Link>
-      <ul>
+      <button onClick={gotoeditor} className="btn btn-primary">
+        New blog post
+      </button>
+      <h3 className="mt-4">Blog posts:</h3>
+      <ul className="list-group-flush">
         {posts.map((post) => (
           <PostListItem postinfo={post} />
         ))}

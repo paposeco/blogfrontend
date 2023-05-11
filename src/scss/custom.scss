@@ -1,3 +1,4 @@
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 @include media-breakpoint-up(lg){
@@ -5,4 +6,20 @@
         width: 80%;
         margin: auto;
     }
+}
+
+body{
+    background-color: $gray-100 !important;
+}
+
+nav{
+  //  background-color: $black !important;
+}
+
+nav a{
+   // color: $orange-400 !important;
+}
+
+button{
+  //  background-color: $orange-400 !important;
 }

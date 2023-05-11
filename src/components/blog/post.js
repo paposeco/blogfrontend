@@ -19,17 +19,25 @@ const Post = function(props) {
     if (post.length === 0) {
       createParagraphs(props.post);
     }
-  }, []);
+  }, [post, props]);
+
   return (
-    <div>
+    <div className="mb-4">
       <h2>
         <Link to={props.post.url}>{props.post.title}</Link>
       </h2>
-      <p>{props.post.post_timestamp}</p>
+      <p className="text-muted">
+        <i className="las la-calendar"></i>
+        <span> </span>Published {post.post_timestamp}
+      </p>
       {post.map((element) => (
         <p>{element}</p>
       ))}
-      <p>{props.post.comments.length} Comments</p>
+      <p className="text-muted">
+        <i className="las la-comment"></i>
+        <span> </span>
+        {props.post.comments.length} Comments
+      </p>
     </div>
   );
 };

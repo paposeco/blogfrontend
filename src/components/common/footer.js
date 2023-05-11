@@ -11,8 +11,15 @@ const Footer = function() {
     }
   }, [year]);
   return (
-    <div>
-      <p> icon {year} | Fabi</p>
+    <div className="min-v-100 mb-2">
+      <p className="text-center">
+        {" "}
+        <i className="las la-copyright"></i>
+        <span> </span> {year} |{" "}
+        <a href="https://github.com/paposeco">
+          <i className="lab la-github"></i> Fabi
+        </a>
+      </p>
     </div>
   );
 };
