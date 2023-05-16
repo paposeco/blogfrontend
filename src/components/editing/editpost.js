@@ -6,9 +6,9 @@ const EditPost = function() {
   const location = useLocation();
   const navigate = useNavigate();
   const [postID, setPostID] = useState("");
-  const [postTitle, setPostTitle] = useState(state.post.title);
-  const [postContent, setPostContent] = useState(state.post.content);
-  const [postStatus, setPostStatus] = useState(state.post.draft);
+  const [postTitle, setPostTitle] = useState(state.title);
+  const [postContent, setPostContent] = useState(state.content);
+  const [postStatus, setPostStatus] = useState(state.draft);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
@@ -61,7 +61,9 @@ const EditPost = function() {
     <div>
       <h2>New Post</h2>
       <form onSubmit={handlerOfSubmit}>
-        <label htmlFor="title">Title:</label>
+        <label htmlFor="title" className="form-label">
+          Title:
+        </label>
         <input
           type="text"
           maxLength="100"
@@ -70,8 +72,11 @@ const EditPost = function() {
           id="title"
           value={postTitle}
           onChange={handlerOfChange}
+          className="form-control"
         />
-        <label htmlFor="postcontent">Post:</label>
+        <label htmlFor="postcontent" className="form-label">
+          Post:
+        </label>
         <textarea
           type="textarea"
           name="postcontent"
@@ -79,8 +84,9 @@ const EditPost = function() {
           value={postContent}
           required
           onChange={handlerOfChange}
+          className="form-control"
+          rows="35"
         />
-        <label htmlFor="draft">Save as draft or publish:</label>
         <fieldset>
           <legend>Save as draft or publish</legend>
           <div>
@@ -91,8 +97,11 @@ const EditPost = function() {
               value="draft"
               checked={postStatus ? true : false}
               onChange={handlerOfChange}
+              className="mx-2"
             />
-            <label htmlFor="poststatus1">Draft</label>
+            <label htmlFor="poststatus1" className="form-label">
+              Draft
+            </label>
             <input
               type="radio"
               id="poststatus2"
@@ -100,11 +109,14 @@ const EditPost = function() {
               value="publish"
               checked={postStatus ? false : true}
               onChange={handlerOfChange}
+              className="mx-2"
             />
             <label htmlFor="poststatus2">Publish</label>
           </div>
         </fieldset>
-        <button type="submit">Save</button>
+        <button type="submit" className="btn btn-primary">
+          Save
+        </button>
       </form>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = function(props) {
@@ -32,26 +32,33 @@ const Login = function(props) {
   };
   return (
     <div>
-      <form onSubmit={handlerOfSubmit}>
-        <label htmlFor="email">
+      <form
+        onSubmit={handlerOfSubmit}
+        className="d-flex flex-column w-25 gap-1"
+      >
+        <label htmlFor="email" className="form-label">
           E-mail:
-          <input
-            type="email"
-            name="email"
-            id="email"
-            onChange={handlerOfChange}
-          />
         </label>
-        <label htmlFor="password">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          onChange={handlerOfChange}
+          className="form-control"
+        />
+        <label htmlFor="password" className="form-label">
           Password:
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={handlerOfChange}
-          />
         </label>
-        <button type="submit">Log in</button>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          onChange={handlerOfChange}
+          className="form-control"
+        />
+        <button type="submit" className="btn btn-primary w-25">
+          Log in
+        </button>
       </form>
     </div>
   );

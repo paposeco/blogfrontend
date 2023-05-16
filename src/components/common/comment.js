@@ -6,7 +6,7 @@ const Comment = function(props) {
   const editorOrBlog = location.pathname.includes("editor") ? true : false;
 
   return (
-    <li className="list-group-item" key={props.commentinfo._id}>
+    <li className="list-group-item mb-2" key={props.commentinfo._id}>
       {props.commentinfo.reader_email !== undefined ? (
         <p>
           <i className="las la-comment-alt"></i>
@@ -27,10 +27,11 @@ const Comment = function(props) {
       <p className="px-2">{props.commentinfo.content}</p>
       {editorOrBlog ? (
         <button
+          className="btn btn-secondary mb-2 mx-2"
           onClick={props.deleteComment}
           data-commentid={props.commentinfo._id}
         >
-          Delete comment
+          <i className="las la-trash"></i>
         </button>
       ) : null}
     </li>

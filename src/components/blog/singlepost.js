@@ -81,7 +81,7 @@ const SinglePost = function() {
     }
     try {
       const response = await fetch(
-        `http:localhost.localdomain:5000/posts/${postID}/newcomment`,
+        `http://localhost.localdomain:5000/posts/${postID}/newcomment`,
         {
           method: "POST",
           headers: {
@@ -91,9 +91,13 @@ const SinglePost = function() {
         }
       );
       if (response.status === 201) {
+        setFetchingData(true);
+        setShowCommentBox(false);
         navigate(`/blog/posts/${postID}`);
       }
-    } catch (err) { }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (fetchingData) {
@@ -120,8 +124,10 @@ const SinglePost = function() {
         </div>
 
         {showCommentBox ? (
-          <form onSubmit={handlerOfSubmit}>
-            <label htmlFor="readerusername">Username:</label>
+          <form onSubmit={handlerOfSubmit} className="w-50 mt-4">
+            <label htmlFor="readerusername" className="form-label">
+              Username:
+            </label>
             <input
               id="readerusername"
               name="readerusername"
@@ -129,24 +135,33 @@ const SinglePost = function() {
               onChange={handlerOfChange}
               required
               maxLength="50"
+              className="form-control"
             />
-            <label htmlFor="readeremail">E-mail (optional):</label>
+            <label htmlFor="readeremail" className="form-label">
+              E-mail (optional):
+            </label>
             <input
               id="readerusername"
               name="readerusername"
               type="email"
               maxLength="50"
               onChange={handlerOfChange}
+              className="form-control"
             />
-            <label htmlFor="commentcontent">Comment:</label>
+            <label htmlFor="commentcontent" className="form-label">
+              Comment:
+            </label>
             <textarea
               id="commentcontent"
               name="commentcontent"
               maxLength="300"
               required
               onChange={handlerOfChange}
+              className="form-control"
             />
-            <button type="submit">Save</button>
+            <button type="submit" className="btn btn-primary w-25 mt-2">
+              Save
+            </button>
           </form>
         ) : null}
         <h3 className="mt-4 mb-4">Comments</h3>

@@ -94,7 +94,9 @@ const NewPost = function() {
       <div>
         <h2>New Post</h2>
         <form onSubmit={handlerOfSubmit}>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title" className="form-label">
+            Title:
+          </label>
           <input
             type="text"
             maxLength="100"
@@ -102,16 +104,20 @@ const NewPost = function() {
             name="title"
             id="title"
             onChange={handlerOfChange}
+            className="form-control"
           />
-          <label htmlFor="postcontent">Post:</label>
+          <label htmlFor="postcontent" className="form-label">
+            Post:
+          </label>
           <textarea
             type="textarea"
             name="postcontent"
             id="postcontent"
             required
             onChange={handlerOfChange}
+            className="form-control"
+            rows="35"
           />
-          <label htmlFor="draft">Save as draft or publish:</label>
           <fieldset>
             <legend>Save as draft or publish</legend>
             <div>
@@ -122,19 +128,27 @@ const NewPost = function() {
                 value="draft"
                 checked
                 onChange={handlerOfChange}
+                className="mx-2"
               />
-              <label htmlFor="poststatus1">Draft</label>
+              <label htmlFor="poststatus1" className="form-label">
+                Draft
+              </label>
               <input
                 type="radio"
                 id="poststatus2"
                 name="poststatus"
                 value="publish"
                 onChange={handlerOfChange}
+                className="mx-2"
               />
-              <label htmlFor="poststatus2">Publish</label>
+              <label htmlFor="poststatus2" className="form-label">
+                Publish
+              </label>
             </div>
           </fieldset>
-          <button type="submit">Save</button>
+          <button type="submit" className="btn btn-primary">
+            Save
+          </button>
         </form>
       </div>
     );

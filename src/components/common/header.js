@@ -23,7 +23,7 @@ const Header = function(props) {
 
   if (!props.logged) {
     return (
-      <nav className="navbar navbar-sm w-100 navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-sm w-100 navbar-dark bg-dark rounded">
         <div className="w-100 container-fluid">
           <ul className="navbar-nav d-flex w-100">
             <li className="nav-item">

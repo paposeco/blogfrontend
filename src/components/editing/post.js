@@ -10,6 +10,7 @@ const PostOnEditor = function() {
   const [dataFetched, setDataFetched] = useState(false);
   const [comments, setComments] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [fullPost, setFullPost] = useState();
 
   useEffect(() => {
     setPostID(location.pathname.substring(14));
@@ -31,6 +32,7 @@ const PostOnEditor = function() {
         const responseData = await response.json();
         setComments(responseData.comments);
         createParagraphs(responseData.post);
+        setFullPost(responseData.post);
       }
     } catch (err) { }
   };
@@ -57,7 +59,7 @@ const PostOnEditor = function() {
     if (event.target.dataset.commentid !== undefined) {
       try {
         const response = await fetch(
-          `httpents,-caldomain:5000/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
+          `http://localdomain:5000/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
           {
             method: "DELETE",
             headers: {
@@ -77,7 +79,8 @@ const PostOnEditor = function() {
   };
 
   const editBlogPost = function() {
-    navigate(`/editor/posts/${postID}/edit`, { state: postContent });
+    console.log(fullPost);
+    navigate(`/editor/posts/${postID}/edit`, { state: fullPost });
   };
 
   const deleteBlogPost = async function() {
@@ -103,21 +106,29 @@ const PostOnEditor = function() {
 
   if (postContent !== undefined) {
     return (
-      <div>
-        <div>
-          <h2>{postContent.title}</h2>
+      <div className="d-flex flex-column flex-grow-1">
+        <div className="flex-grow-1">
+          <h2>{fullPost.title}</h2>
           <div>
-            <p>{postContent.post_timestamp}</p>
+            <p className="text-muted">
+              <i className="las la-calendar"></i>
+              <span> </span>
+              {fullPost.status} {fullPost.post_timestamp}
+            </p>
           </div>
           {postContent.map((para) => (
             <p>{para}</p>
           ))}
-          <button onClick={editBlogPost}>Edit</button>
-          <button onClick={deleteBlogPost}>Delete</button>
+          <button onClick={editBlogPost} className="btn btn-primary">
+            Edit post
+          </button>
+          <button onClick={deleteBlogPost} className="btn btn-primary mx-2">
+            Delete post
+          </button>
         </div>
         <div>
-          <h3>Comments</h3>
-          <ul>
+          <h3 className="mt-4 mb-4">Comments</h3>
+          <ul className="list-group-flush">
             {comments.map((comment) => (
               <Comment commentinfo={comment} deleteComment={deleteComment} />
             ))}
