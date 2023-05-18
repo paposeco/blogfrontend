@@ -31,12 +31,12 @@ function App() {
   }, [author]);
 
   return (
-    <div className="content mt-2 mb-2 min-vh-100 d-flex flex-column">
+    <div className="content pt-2 pb-2 min-vh-100 d-flex flex-column">
       <Navigation author={author} logged={logged} />
       <div className="mt-4 mx-2 flex-grow-1 d-flex flex-column">
         <Routes>
           <Route path="/" element={<Blog />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:pagenumber" element={<Blog />} />
           <Route path="/blog/posts/:postid" element={<SinglePost />} />
           <Route path="/editor/posts" element={<EditorBlog />} />
           <Route path="/editor/posts/:postid" element={<PostOnEditor />} />
