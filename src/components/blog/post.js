@@ -28,7 +28,7 @@ const Post = function(props) {
       </h2>
       <p className="text-muted">
         <i className="las la-calendar"></i>
-        <span> </span>Published {post.post_timestamp}
+        <span> </span>Published {props.post.post_timestamp}
       </p>
       {post.map((element) => (
         <p>{element}</p>

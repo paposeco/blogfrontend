@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Comment from "../common/comment";
+import OrangeQuarter from "../../images/quartolaranjasmall.png";
 
 const SinglePost = function() {
   const location = useLocation();
@@ -14,6 +15,12 @@ const SinglePost = function() {
   const [readerUsername, setReaderUsername] = useState("");
   const [readerEmail, setReaderEmail] = useState("");
   const [comment, setComment] = useState("");
+  const [rotateOrange, setRotateOrange] = useState({
+    transform: "rotate(0.2turn)",
+  });
+  const [turns, setTurns] = useState(0.2);
+  const [count, setCount] = useState(0);
+
   const showbox = function() {
     setShowCommentBox(true);
   };
@@ -100,11 +107,27 @@ const SinglePost = function() {
     }
   };
 
+  useEffect(() => {
+    if (count < 5) {
+      const timer = setTimeout(() => {
+        const newTurn = turns + 0.2;
+        setRotateOrange({ transform: `rotate(${newTurn}turn)` });
+        setTurns(turns + 0.2);
+        setCount(count + 1);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [count, rotateOrange, turns]);
+
   if (fetchingData) {
-    return <div>Fetching data</div>;
+    return (
+      <div className="mt-4 ml-4">
+        <img src={OrangeQuarter} alt="quarterorange" style={rotateOrange} />
+      </div>
+    );
   } else {
     return (
-      <div className="d-flex flex-column flex-grow-1">
+      <div className="d-flex flex-column flex-grow-1 mb-5">
         <div className="flex-grow-1">
           <h2>{fullPost.title}</h2>
           <p className="text-muted">
@@ -118,7 +141,7 @@ const SinglePost = function() {
           </div>
         </div>
         <div>
-          <button onClick={showbox} className="btn btn-primary">
+          <button onClick={showbox} className="btn btn-primary  text-white">
             Add comment
           </button>
         </div>
@@ -159,12 +182,16 @@ const SinglePost = function() {
               onChange={handlerOfChange}
               className="form-control"
             />
-            <button type="submit" className="btn btn-primary w-25 mt-2">
+            <button
+              type="submit"
+              className="btn btn-primary w-25 mt-2 text-white"
+            >
               Save
             </button>
           </form>
         ) : null}
         <h3 className="mt-4 mb-4">Comments</h3>
+        {comments.length === 0 ? <p>No comments yet.</p> : null}
         <ul className="list-group-flush">
           {comments.map((comment) => (
             <Comment commentinfo={comment} />

@@ -10,6 +10,8 @@ import EditorBlog from "./components/editing/index.js";
 import Navigation from "./components/common/header";
 import Logout from "./components/editing/logout";
 import Footer from "./components/common/footer";
+import CustomLogo from "./components/common/customlogo";
+import BlogTitle from "./components/common/blogtitle";
 
 function App() {
   const [logged, setlogged] = useState(false);
@@ -33,6 +35,7 @@ function App() {
   return (
     <div className="content pt-2 pb-2 min-vh-100 d-flex flex-column">
       <Navigation author={author} logged={logged} />
+      <BlogTitle />
       <div className="mt-4 mx-2 flex-grow-1 d-flex flex-column">
         <Routes>
           <Route path="/" element={<Blog />} />
@@ -49,6 +52,7 @@ function App() {
           />
         </Routes>
       </div>
+      <CustomLogo />
       <Footer />
     </div>
   );

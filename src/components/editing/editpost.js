@@ -72,7 +72,7 @@ const EditPost = function() {
           id="title"
           value={postTitle}
           onChange={handlerOfChange}
-          className="form-control"
+          className="form-control mb-1"
         />
         <label htmlFor="postcontent" className="form-label">
           Post:
@@ -84,7 +84,7 @@ const EditPost = function() {
           value={postContent}
           required
           onChange={handlerOfChange}
-          className="form-control"
+          className="form-control mb-2"
           rows="35"
         />
         <fieldset>
@@ -114,7 +114,7 @@ const EditPost = function() {
             <label htmlFor="poststatus2">Publish</label>
           </div>
         </fieldset>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary text-white">
           Save
         </button>
       </form>

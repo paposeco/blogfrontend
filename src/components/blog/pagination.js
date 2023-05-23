@@ -20,7 +20,7 @@ const Pagination = function(props) {
   }, [pagelink, location, props]);
 
   return (
-    <Link className={`page-link ${props.activeclass}`} to={pagelink}>
+    <Link className={`page-link ${props.activeclass} fw-bolder`} to={pagelink}>
       {props.pagenumber}
     </Link>
   );

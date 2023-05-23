@@ -42,7 +42,7 @@ const Posts = function() {
   };
   return (
     <div>
-      <button onClick={gotoeditor} className="btn btn-primary">
+      <button onClick={gotoeditor} className="btn btn-primary text-white">
         New blog post
       </button>
       <h3 className="mt-4">Blog posts:</h3>

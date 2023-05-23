@@ -23,7 +23,7 @@ const Header = function(props) {
 
   if (!props.logged) {
     return (
-      <nav className="navbar navbar-expand-sm w-100 navbar-dark bg-dark rounded">
+      <nav className="navbar navbar-expand-sm w-100 rounded bg-light">
         <div className="w-100 container-fluid">
           <ul className="navbar-nav d-flex w-100">
             <li className="nav-item">
@@ -42,7 +42,7 @@ const Header = function(props) {
     );
   } else {
     return (
-      <nav className="navbar navbar-expand-sm w-100 navbar-dark bg-dark rounded">
+      <nav className="navbar navbar-expand-sm w-100 rounded bg-light">
         <div className="w-100 container-fluid">
           <ul className="navbar-nav d-flex w-100">
             <li className="nav-item">
@@ -56,8 +56,11 @@ const Header = function(props) {
               </Link>
             </li>
             <div className="d-flex flex-grow-1 justify-content-end">
-              <p className="navbar-text px-2 mb-0">Hi {props.author}</p>
-              <button className="btn btn-primary" onClick={logout}>
+              <p className="navbar-text px-2 mb-0 me-1">Hi {props.author}</p>
+              <button
+                className="btn btn-primary text-white fw-bold"
+                onClick={logout}
+              >
                 Logout
               </button>
             </div>
