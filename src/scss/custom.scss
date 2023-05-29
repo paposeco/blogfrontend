@@ -4,6 +4,7 @@
 $theme-colors: (
     "primary": #d700ff,
     "light": #ffd700,
+    "secondary": #00ffd7
 );
 
 $link-color: #d700ff;
@@ -28,12 +29,44 @@ $pagination-hover-color: white;
 @import "../../node_modules/bootstrap/scss/root";
 @import "../../node_modules/bootstrap/scss/utilities";
 
+.orangesize{
+    width:50px;
+}
+
+.content{
+    width: 95%;
+    margin: auto;
+}
+
+.loginformbtn{
+    width: 150px;
+}
+
+@include media-breakpoint-up(md){
+    .orangesize{
+        width: 75px;
+    }
+    .loginform{
+        width: 50%;
+    }
+}
+
 @include media-breakpoint-up(lg){
     .content{
         width: 80%;
         margin: auto;
     }
+    .orangesize{
+        width: 100px;
+    }
+        .loginform{
+            width: 25%;
+        }
 }
+
+
+
+
 
 body{
     background-color: $gray-100 !important;
@@ -66,3 +99,5 @@ h1,h2,h3,h4,h5{
     font-family: Mate SC !important;
     font-weight: 700;
 }
+
+

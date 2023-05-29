@@ -34,7 +34,7 @@ const CustomLogo = function() {
       <img
         src={Orange}
         alt="logo"
-        className="position-absolute bottom-0 end-0 mb-5 me-5 img-fluid"
+        className="position-fixed bottom-0 end-0 mb-2 me-2 img-fluid orangesize"
         style={rotateOrange}
       />
     </div>

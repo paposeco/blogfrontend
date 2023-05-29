@@ -56,12 +56,12 @@ const Header = function(props) {
               </Link>
             </li>
             <div className="d-flex flex-grow-1 justify-content-end">
-              <p className="navbar-text px-2 mb-0 me-1">Hi {props.author}</p>
+              <p className="navbar-text pe-2 mb-0 me-1">Hi {props.author}</p>
               <button
-                className="btn btn-primary text-white fw-bold"
+                className="btn btn-primary text-white fw-bold fs-3 px-1 py-0"
                 onClick={logout}
               >
-                Logout
+                <i className="las la-sign-out-alt"></i>
               </button>
             </div>
           </ul>

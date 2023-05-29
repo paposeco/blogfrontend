@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Comment from "../common/comment";
-import OrangeQuarter from "../../images/quartolaranjasmall.png";
+import { v4 as uuidv4 } from "uuid";
+import RotatingOrange from "../common/orange";
 
 const SinglePost = function() {
   const location = useLocation();
@@ -15,15 +16,11 @@ const SinglePost = function() {
   const [readerUsername, setReaderUsername] = useState("");
   const [readerEmail, setReaderEmail] = useState("");
   const [comment, setComment] = useState("");
-  const [rotateOrange, setRotateOrange] = useState({
-    transform: "rotate(0.2turn)",
-  });
-  const [turns, setTurns] = useState(0.2);
-  const [count, setCount] = useState(0);
 
   const showbox = function() {
     setShowCommentBox(true);
   };
+
   useEffect(() => {
     const fetchData = async function() {
       try {
@@ -37,18 +34,22 @@ const SinglePost = function() {
           }
         );
         if (response.status === 200) {
-          const responseData = await response.json();
-          setFetchingData(false);
-          setComments(responseData.comments);
-          createParagraphs(responseData.post);
-          setFullPost(responseData.post);
+          if (fetchingData) {
+            const responseData = await response.json();
+            setComments(responseData.comments);
+            createParagraphs(responseData.post);
+            setFullPost(responseData.post);
+          }
         }
-      } catch (err) { }
+      } catch (err) {
+        console.log(err);
+      }
     };
     if (fetchingData) {
+      setFetchingData(false);
       fetchData();
     }
-  }, [postID, fetchingData]);
+  }, []);
 
   const createParagraphs = function(postcontent) {
     const paragraphArray = postcontent.content.split("\n");
@@ -107,24 +108,8 @@ const SinglePost = function() {
     }
   };
 
-  useEffect(() => {
-    if (count < 5) {
-      const timer = setTimeout(() => {
-        const newTurn = turns + 0.2;
-        setRotateOrange({ transform: `rotate(${newTurn}turn)` });
-        setTurns(turns + 0.2);
-        setCount(count + 1);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [count, rotateOrange, turns]);
-
-  if (fetchingData) {
-    return (
-      <div className="mt-4 ml-4">
-        <img src={OrangeQuarter} alt="quarterorange" style={rotateOrange} />
-      </div>
-    );
+  if (fetchingData || fullPost === undefined) {
+    return <RotatingOrange />;
   } else {
     return (
       <div className="d-flex flex-column flex-grow-1 mb-5">
@@ -132,11 +117,12 @@ const SinglePost = function() {
           <h2>{fullPost.title}</h2>
           <p className="text-muted">
             <i className="las la-calendar"></i>
-            <span> </span>Published {fullPost.post_timestamp}
+            <span> </span>Published {fullPost.post_timestamp} by{" "}
+            {fullPost.author.author_name}
           </p>
           <div className="my-4">
             {post.map((para) => (
-              <p>{para}</p>
+              <p key={uuidv4()}>{para}</p>
             ))}
           </div>
         </div>

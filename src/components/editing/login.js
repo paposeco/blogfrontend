@@ -34,7 +34,7 @@ const Login = function(props) {
     <div>
       <form
         onSubmit={handlerOfSubmit}
-        className="d-flex flex-column w-25 gap-1"
+        className="d-flex flex-column gap-1 loginform"
       >
         <label htmlFor="email" className="form-label">
           E-mail:
@@ -56,7 +56,10 @@ const Login = function(props) {
           onChange={handlerOfChange}
           className="form-control"
         />
-        <button type="submit" className="btn btn-primary w-25">
+        <button
+          type="submit"
+          className="btn btn-primary text-white loginformbtn"
+        >
           Log in
         </button>
       </form>

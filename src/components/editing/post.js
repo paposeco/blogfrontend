@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Comment from "../common/comment";
 import OrangeQuarter from "../../images/quartolaranjasmall.png";
+import { v4 as uuidv4 } from "uuid";
 
 const PostOnEditor = function() {
   const location = useLocation();
@@ -22,27 +23,6 @@ const PostOnEditor = function() {
     setPostID(location.pathname.substring(14));
   }, [location]);
 
-  const fetchData = async function() {
-    try {
-      const response = await fetch(
-        `http://localhost.localdomain:5000/editor/posts/${postID}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        const responseData = await response.json();
-        setComments(responseData.comments);
-        createParagraphs(responseData.post);
-        setFullPost(responseData.post);
-      }
-    } catch (err) { }
-  };
-
   const createParagraphs = function(postcontent) {
     const paragraphArray = postcontent.content.split("\n");
     let cleanArray = [];
@@ -55,13 +35,53 @@ const PostOnEditor = function() {
   };
 
   useEffect(() => {
+    const fetchData = async function() {
+      try {
+        const response = await fetch(
+          `http://localhost.localdomain:5000/editor/posts/${postID}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          const responseData = await response.json();
+          setComments(responseData.comments);
+          createParagraphs(responseData.post);
+          setFullPost(responseData.post);
+        }
+      } catch (err) { }
+    };
     if (!dataFetched) {
       fetchData();
       setDataFetched(true);
     }
-  }, [dataFetched]);
+  }, [dataFetched, postID, token]);
 
   const deleteComment = async function(event) {
+    const fetchData = async function() {
+      try {
+        const response = await fetch(
+          `http://localhost.localdomain:5000/editor/posts/${postID}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          const responseData = await response.json();
+          setComments(responseData.comments);
+          createParagraphs(responseData.post);
+          setFullPost(responseData.post);
+        }
+      } catch (err) { }
+    };
     if (event.target.dataset.commentid !== undefined) {
       try {
         const response = await fetch(
@@ -85,7 +105,6 @@ const PostOnEditor = function() {
   };
 
   const editBlogPost = function() {
-    console.log(fullPost);
     navigate(`/editor/posts/${postID}/edit`, { state: fullPost });
   };
 
@@ -135,7 +154,7 @@ const PostOnEditor = function() {
             </p>
           </div>
           {postContent.map((para) => (
-            <p>{para}</p>
+            <p id={uuidv4()}>{para}</p>
           ))}
           <button onClick={editBlogPost} className="btn btn-primary text-white">
             Edit post
@@ -168,5 +187,3 @@ const PostOnEditor = function() {
 };
 
 export default PostOnEditor;
-
-//copy formatting from blog post singlepost

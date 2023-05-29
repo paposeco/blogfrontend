@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Post from "./post";
 import Pagination from "./pagination";
+import { v4 as uuidv4 } from "uuid";
+import RotatingOrange from "../common/orange";
 
 const Blog = function() {
   const [posts, setPosts] = useState([]);
-  const [fetchfailed, setfetchfailed] = useState(false);
   const [dataFetched, setDataFetched] = useState(false);
   const [totalpostsfetched, settotalpostsfetched] = useState(false);
-  const [totalPosts, setTotalPosts] = useState(0);
-  const [pagination, setpagination] = useState(0);
   const [paginationCompontents, setPaginationComponents] = useState([]);
 
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState("");
 
   useEffect(() => {
-    const pagenumber = location.pathname[location.pathname.length - 1];
     setDataFetched(false);
+    const pagenumber = location.pathname[location.pathname.length - 1];
     if (pagenumber === "/") {
       setCurrentPage("http://localhost.localdomain:5000/");
     } else {
@@ -39,14 +38,33 @@ const Blog = function() {
           setPosts(responseData.posts);
         }
       } catch (err) {
-        setfetchfailed(true);
+        console.log(err);
       }
     };
+
     if (!dataFetched && currentPage !== "") {
-      fetchData();
       setDataFetched(true);
+      fetchData();
     }
-  }, [dataFetched, currentPage]);
+  }, [currentPage]);
+
+  const createPaginationComponentList = function(totalposts) {
+    const pages = Math.floor(totalposts / 6);
+    const currpage = location.pathname[location.pathname.length - 1];
+    let componentsarray = [];
+    for (let i = 0; i < pages + 1; i++) {
+      let actClass = "";
+      if (Number(currpage) === i + 1 || (currpage === "/" && i === 0)) {
+        actClass = "active";
+      }
+      componentsarray.push(
+        <li className="page-item" key={uuidv4()}>
+          <Pagination pagenumber={i + 1} activeclass={actClass} />
+        </li>
+      );
+    }
+    setPaginationComponents(componentsarray);
+  };
 
   useEffect(() => {
     const fetchData = async function() {
@@ -62,7 +80,7 @@ const Blog = function() {
         );
         if (response.status === 200) {
           const responseData = await response.json();
-          setTotalPosts(responseData.totalposts);
+          createPaginationComponentList(responseData.totalposts);
         }
       } catch (err) {
         console.log(err);
@@ -74,36 +92,18 @@ const Blog = function() {
     }
   }, [totalpostsfetched]);
 
-  // 5 posts per page
-  useEffect(() => {
-    if (totalPosts > 0) {
-      const pages = Math.floor(totalPosts / 6);
-      setpagination(pages);
-      const currpage = location.pathname[location.pathname.length - 1];
-      let componentsarray = [];
-      for (let i = 0; i < pages + 1; i++) {
-        let actClass = "";
-        if (Number(currpage) === i + 1 || (currpage === "/" && i === 0)) {
-          actClass = "active";
-        }
-        componentsarray.push(
-          <li className="page-item">
-            <Pagination pagenumber={i + 1} activeclass={actClass} />
-          </li>
-        );
-      }
-      setPaginationComponents(componentsarray);
-    }
-  }, [totalPosts, pagination, location]);
-
-  if (fetchfailed) {
-    return <div>Fetching failed.</div>;
+  if (!dataFetched) {
+    return <RotatingOrange />;
   } else {
     return (
-      <div>
-        {posts.map((post) => (
-          <Post post={post} />
-        ))}
+      <div className="d-flex flex-column flex-grow-1">
+        <div className="d-flex flex-column flex-grow-1">
+          {posts.map((post) => (
+            <div key={uuidv4()}>
+              <Post post={post} />
+            </div>
+          ))}
+        </div>
         <ul className="pagination d-flex flex-row justify-content-center gap-2">
           {paginationCompontents}
         </ul>

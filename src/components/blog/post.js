@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const Post = function(props) {
   const [post, setPost] = useState([]);
@@ -28,10 +29,11 @@ const Post = function(props) {
       </h2>
       <p className="text-muted">
         <i className="las la-calendar"></i>
-        <span> </span>Published {props.post.post_timestamp}
+        <span> </span>Published {props.post.post_timestamp} by{" "}
+        {props.post.author.author_name}
       </p>
       {post.map((element) => (
-        <p>{element}</p>
+        <p key={uuidv4()}>{element}</p>
       ))}
       <p className="text-muted">
         <i className="las la-comment"></i>

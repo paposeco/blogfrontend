@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const PostListItem = function(props) {
   const [draftStatus, setDraftStatus] = useState();
@@ -12,7 +13,7 @@ const PostListItem = function(props) {
   }, [props]);
 
   return (
-    <li className="list-group-item py-1" key={props.postinfo._id}>
+    <li className="list-group-item py-1" key={uuidv4()}>
       <i className="las la-file-alt"></i>
       <span> </span>
       <Link to={props.postinfo.urleditor}>{props.postinfo.title}</Link>{" "}

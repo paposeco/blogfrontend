@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PostListItem from "../common/postlistitem";
+import RotatingOrange from "../common/orange";
+import { v4 as uuidv4 } from "uuid";
 
 const Posts = function() {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [fetchStatus, setFetchStatus] = useState(true);
   const [dataFetched, setDataFetched] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchPosts = async function() {
@@ -32,27 +35,34 @@ const Posts = function() {
       }
     };
     if (!dataFetched) {
-      fetchPosts();
       setDataFetched(true);
+      fetchPosts();
     }
-  }, [token, dataFetched, navigate]);
+  }, [token]);
 
   const gotoeditor = function(event) {
     navigate("/editor/newpost");
   };
-  return (
-    <div>
-      <button onClick={gotoeditor} className="btn btn-primary text-white">
-        New blog post
-      </button>
-      <h3 className="mt-4">Blog posts:</h3>
-      <ul className="list-group-flush">
-        {posts.map((post) => (
-          <PostListItem postinfo={post} />
-        ))}
-      </ul>
-    </div>
-  );
+
+  if (!fetchStatus) {
+    return <RotatingOrange />;
+  } else {
+    return (
+      <div>
+        <button onClick={gotoeditor} className="btn btn-primary text-white">
+          New blog post
+        </button>
+        <h3 className="mt-4">Blog posts:</h3>
+        <ul className="list-group-flush">
+          {posts.map((post) => (
+            <div key={uuidv4()}>
+              <PostListItem postinfo={post} />
+            </div>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 };
 
 export default Posts;

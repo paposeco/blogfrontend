@@ -14,7 +14,7 @@ const Logout = function(props) {
   return (
     <div>
       <p>Are you sure you want to logout?</p>
-      <button onClick={handleLogout} className="btn btn-primary">
+      <button onClick={handleLogout} className="btn btn-primary text-white">
         Yes
       </button>
     </div>
