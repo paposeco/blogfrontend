@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Comment from "../common/comment";
-import OrangeQuarter from "../../images/quartolaranjasmall.png";
+import RotatingOrange from "../common/orange";
 import { v4 as uuidv4 } from "uuid";
 
 const PostOnEditor = function() {
@@ -13,11 +13,6 @@ const PostOnEditor = function() {
   const [comments, setComments] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [fullPost, setFullPost] = useState();
-  const [rotateOrange, setRotateOrange] = useState({
-    transform: "rotate(0.2turn)",
-  });
-  const [turns, setTurns] = useState(0.2);
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     setPostID(location.pathname.substring(14));
@@ -38,7 +33,7 @@ const PostOnEditor = function() {
     const fetchData = async function() {
       try {
         const response = await fetch(
-          `http://localhost.localdomain:5000/editor/posts/${postID}`,
+          `https://blogapi-production-7add.up.railway.app/editor/posts/${postID}`,
           {
             method: "GET",
             headers: {
@@ -65,7 +60,7 @@ const PostOnEditor = function() {
     const fetchData = async function() {
       try {
         const response = await fetch(
-          `http://localhost.localdomain:5000/editor/posts/${postID}`,
+          `https://blogapi-production-7add.up.railway.app/editor/posts/${postID}`,
           {
             method: "GET",
             headers: {
@@ -85,7 +80,7 @@ const PostOnEditor = function() {
     if (event.target.dataset.commentid !== undefined) {
       try {
         const response = await fetch(
-          `http://localdomain:5000/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
+          `https://blogapi-production-7add.up.railway.app/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
           {
             method: "DELETE",
             headers: {
@@ -111,7 +106,7 @@ const PostOnEditor = function() {
   const deleteBlogPost = async function() {
     try {
       const response = await fetch(
-        `http://localhost.localdomain:5000/editor/posts/${postID}`,
+        `https://blogapi-production-7add.up.railway.app/editor/posts/${postID}`,
         {
           method: "DELETE",
           headers: {
@@ -129,19 +124,9 @@ const PostOnEditor = function() {
     } catch (err) { }
   };
 
-  useEffect(() => {
-    if (count < 5) {
-      const timer = setTimeout(() => {
-        const newTurn = turns + 0.2;
-        setRotateOrange({ transform: `rotate(${newTurn}turn)` });
-        setTurns(turns + 0.2);
-        setCount(count + 1);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [count, rotateOrange, turns]);
-
-  if (postContent !== undefined) {
+  if (postContent === undefined) {
+    return <RotatingOrange />;
+  } else {
     return (
       <div className="d-flex flex-column flex-grow-1 mb-5">
         <div className="flex-grow-1">
@@ -175,12 +160,6 @@ const PostOnEditor = function() {
             ))}
           </ul>
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="mt-4 ml-4">
-        <img src={OrangeQuarter} alt="quarterorange" style={rotateOrange} />
       </div>
     );
   }

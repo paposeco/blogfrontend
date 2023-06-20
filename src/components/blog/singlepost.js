@@ -25,7 +25,7 @@ const SinglePost = function() {
     const fetchData = async function() {
       try {
         const response = await fetch(
-          `http://localhost.localdomain:5000/posts/${postID}`,
+          `https://blogapi-production-7add.up.railway.app/posts/${postID}`,
           {
             method: "GET",
             headers: {
@@ -89,7 +89,7 @@ const SinglePost = function() {
     }
     try {
       const response = await fetch(
-        `http://localhost.localdomain:5000/posts/${postID}/newcomment`,
+        `https://blogapi-production-7add.up.railway.app/posts/${postID}/newcomment`,
         {
           method: "POST",
           headers: {
@@ -101,7 +101,7 @@ const SinglePost = function() {
       if (response.status === 201) {
         setFetchingData(true);
         setShowCommentBox(false);
-        navigate(`/blog/posts/${postID}`);
+        navigate(`/posts/${postID}`);
       }
     } catch (err) {
       console.log(err);
@@ -150,8 +150,8 @@ const SinglePost = function() {
               E-mail (optional):
             </label>
             <input
-              id="readerusername"
-              name="readerusername"
+              id="readeremail"
+              name="readeremail"
               type="email"
               maxLength="50"
               onChange={handlerOfChange}

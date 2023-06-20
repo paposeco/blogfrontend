@@ -12,6 +12,7 @@ import Logout from "./components/editing/logout";
 import Footer from "./components/common/footer";
 import CustomLogo from "./components/common/customlogo";
 import BlogTitle from "./components/common/blogtitle";
+import CreateUser from "./components/editing/createuser";
 
 function App() {
   const [logged, setlogged] = useState(false);
@@ -45,6 +46,7 @@ function App() {
           <Route path="/editor/posts/:postid" element={<PostOnEditor />} />
           <Route path="/editor/newpost" element={<NewPost />} />
           <Route path="/editor/login" element={<Login loggedin={loggedin} />} />
+          <Route path="/editor/createuser" element={<CreateUser />} />
           <Route path="/editor/posts/:postid/edit" element={<EditPost />} />
           <Route
             path="/editor/logout"

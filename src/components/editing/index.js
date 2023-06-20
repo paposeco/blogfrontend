@@ -15,7 +15,7 @@ const Posts = function() {
     const fetchPosts = async function() {
       try {
         const response = await fetch(
-          "http://localhost.localdomain:5000/editor/posts",
+          "https://blogapi-production-7add.up.railway.app/editor/posts",
           {
             method: "GET",
             headers: {

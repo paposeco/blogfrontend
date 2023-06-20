@@ -17,7 +17,7 @@ const NewPost = function() {
       // i could get the author name here
       try {
         const response = await fetch(
-          "http://localhost.localdomain:5000/editor/newpost",
+          "https://blogapi-production-7add.up.railway.app/editor/newpost",
           {
             method: "GET",
             headers: {
@@ -51,7 +51,7 @@ const NewPost = function() {
 
     try {
       const response = await fetch(
-        "http://localhost.localdomain:5000/editor/newpost",
+        "https://blogapi-production-7add.up.railway.app/editor/newpost",
         {
           method: "POST",
           headers: {

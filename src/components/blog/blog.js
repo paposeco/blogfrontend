@@ -18,9 +18,11 @@ const Blog = function() {
     setDataFetched(false);
     const pagenumber = location.pathname[location.pathname.length - 1];
     if (pagenumber === "/") {
-      setCurrentPage("http://localhost.localdomain:5000/");
+      setCurrentPage("https://blogapi-production-7add.up.railway.app/");
     } else {
-      setCurrentPage("http://localhost.localdomain:5000/blog/" + pagenumber);
+      setCurrentPage(
+        "https://blogapi-production-7add.up.railway.app/blog/" + pagenumber
+      );
     }
   }, [location]);
 
@@ -70,7 +72,7 @@ const Blog = function() {
     const fetchData = async function() {
       try {
         const response = await fetch(
-          "http://localhost.localdomain:5000/totalposts",
+          "https://blogapi-production-7add.up.railway.app/totalposts",
           {
             method: "GET",
             headers: {

@@ -22,7 +22,7 @@ const EditPost = function() {
     event.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost.localdomain:5000/editor/posts/${postID}`,
+        `https://blogapi-production-7add.up.railway.app/editor/posts/${postID}`,
         {
           method: "PUT",
           headers: {

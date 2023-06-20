@@ -36,6 +36,14 @@ const Header = function(props) {
                 Login
               </Link>
             </li>
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${editoractive}`}
+                to="/editor/createuser"
+              >
+                Register
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Login = function(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [wrongPassword, setWrongPassword] = useState(false);
   const navigate = useNavigate();
   const handlerOfChange = function(event) {
     if (event.target.id === "email") {
@@ -16,22 +17,28 @@ const Login = function(props) {
     event.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost.localdomain:5000/editor/login",
+        "https://blogapi-production-7add.up.railway.app/editor/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username: username, password: password }),
         }
       );
-      const responseData = await response.json();
-      localStorage.setItem("token", responseData.token);
-      localStorage.setItem("author", responseData.author);
-      props.loggedin();
-      navigate("/editor/posts");
+
+      if (response.status === 400) {
+        setWrongPassword(true);
+      } else {
+        const responseData = await response.json();
+        localStorage.setItem("token", responseData.token);
+        localStorage.setItem("author", responseData.author);
+        props.loggedin();
+        navigate("/editor/posts");
+      }
     } catch (err) { }
   };
   return (
     <div>
+      {wrongPassword ? <p>Wrong password.</p> : null}
       <form
         onSubmit={handlerOfSubmit}
         className="d-flex flex-column gap-1 loginform"
