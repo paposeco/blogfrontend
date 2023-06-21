@@ -69,7 +69,7 @@ const CreateUser = function() {
           body: JSON.stringify({
             email: email,
             password: password,
-            author_name: name,
+            name: name,
           }),
         }
       );
