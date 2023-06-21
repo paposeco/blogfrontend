@@ -76,6 +76,7 @@ const CreateUser = function() {
       if (response.status === 200) {
         navigate("/editor/login");
       } else {
+        console.log(response.status);
         console.log("something went wrong");
       }
     } catch (err) {
