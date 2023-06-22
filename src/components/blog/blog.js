@@ -50,6 +50,10 @@ const Blog = function() {
     }
   }, [currentPage]);
 
+  useEffect(() => {
+    document.title = "More Oranges";
+  });
+
   const createPaginationComponentList = function(totalposts) {
     const pages = Math.floor(totalposts / 4);
     const currpage = location.pathname[location.pathname.length - 1];
