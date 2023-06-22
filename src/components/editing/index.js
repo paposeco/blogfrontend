@@ -10,6 +10,10 @@ const Posts = function() {
   const [fetchStatus, setFetchStatus] = useState(true);
   const [dataFetched, setDataFetched] = useState(false);
 
+  useEffect(() => {
+    document.title = "Editor";
+  }, []);
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchPosts = async function() {

@@ -13,6 +13,10 @@ const NewPost = function() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "New post";
+  }, []);
+
+  useEffect(() => {
     const fetchData = async function() {
       // i could get the author name here
       try {

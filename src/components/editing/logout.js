@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Logout = function(props) {
@@ -10,6 +10,10 @@ const Logout = function(props) {
     props.loggedout();
     navigate("/");
   };
+
+  useEffect(() => {
+    document.title = "Log out";
+  }, []);
 
   return (
     <div>

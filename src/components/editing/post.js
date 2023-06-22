@@ -18,6 +18,12 @@ const PostOnEditor = function() {
     setPostID(location.pathname.substring(14));
   }, [location]);
 
+  useEffect(() => {
+    if (fullPost !== undefined) {
+      document.title = fullPost.title + " | More Oranges ";
+    }
+  }, [fullPost]);
+
   const createParagraphs = function(postcontent) {
     const paragraphArray = postcontent.content.split("\n");
     let cleanArray = [];
@@ -140,7 +146,7 @@ const PostOnEditor = function() {
             </p>
           </div>
           {postContent.map((para) => (
-            <p id={uuidv4()}>{para}</p>
+            <p key={uuidv4()}>{para}</p>
           ))}
           <button onClick={editBlogPost} className="btn btn-primary text-white">
             Edit post
@@ -157,7 +163,9 @@ const PostOnEditor = function() {
           {comments.length === 0 ? <p>No comments yet.</p> : null}
           <ul className="list-group-flush">
             {comments.map((comment) => (
-              <Comment commentinfo={comment} deleteComment={deleteComment} />
+              <div key={uuidv4()}>
+                <Comment commentinfo={comment} deleteComment={deleteComment} />
+              </div>
             ))}
           </ul>
         </div>

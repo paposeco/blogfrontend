@@ -22,6 +22,12 @@ const SinglePost = function() {
   };
 
   useEffect(() => {
+    if (fullPost !== undefined) {
+      document.title = fullPost.title + " | More Oranges";
+    }
+  }, [fullPost]);
+
+  useEffect(() => {
     const fetchData = async function() {
       try {
         const response = await fetch(

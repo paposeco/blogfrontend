@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = function(props) {
@@ -36,6 +36,10 @@ const Login = function(props) {
       }
     } catch (err) { }
   };
+
+  useEffect(() => {
+    document.title = "Log in";
+  }, []);
   return (
     <div>
       {wrongPassword ? <p>Wrong password.</p> : null}

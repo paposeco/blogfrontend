@@ -17,6 +17,10 @@ const EditPost = function() {
     setPostID(IDandMore.substring(0, findDash));
   }, [location]);
 
+  useEffect(() => {
+    document.title = "Edit blog post";
+  }, []);
+
   // if the post is edited, the date gets updated
   const handlerOfSubmit = async function(event) {
     event.preventDefault();

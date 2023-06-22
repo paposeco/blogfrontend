@@ -11,6 +11,10 @@ const CreateUser = function(props) {
   const [createUserAvailable, setCreateUserAvailable] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = "Create user";
+  }, []);
+
   const handlerOfChange = function(event) {
     switch (event.target.name) {
       case "name":
