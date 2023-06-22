@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CreateUser = function() {
+const CreateUser = function(props) {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -74,7 +74,11 @@ const CreateUser = function() {
         }
       );
       if (response.status === 200) {
-        navigate("/editor/login");
+        const responseData = await response.json();
+        localStorage.setItem("token", responseData.token);
+        localStorage.setItem("author", responseData.author);
+        props.loggedin();
+        navigate("/editor/posts");
       } else {
         console.log(response.status);
         console.log("something went wrong");

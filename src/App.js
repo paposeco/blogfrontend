@@ -46,7 +46,10 @@ function App() {
           <Route path="/editor/posts/:postid" element={<PostOnEditor />} />
           <Route path="/editor/newpost" element={<NewPost />} />
           <Route path="/editor/login" element={<Login loggedin={loggedin} />} />
-          <Route path="/editor/createuser" element={<CreateUser />} />
+          <Route
+            path="/editor/createuser"
+            element={<CreateUser loggedin={loggedin} />}
+          />
           <Route path="/editor/posts/:postid/edit" element={<EditPost />} />
           <Route
             path="/editor/logout"

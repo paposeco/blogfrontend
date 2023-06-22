@@ -119,7 +119,7 @@ const NewPost = function() {
             rows="35"
           />
           <fieldset>
-            <legend>Save as draft or publish</legend>
+            <legend className="pt-1">Save as draft or publish</legend>
             <div>
               <input
                 type="radio"
@@ -146,7 +146,7 @@ const NewPost = function() {
               </label>
             </div>
           </fieldset>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary text-white">
             Save
           </button>
         </form>

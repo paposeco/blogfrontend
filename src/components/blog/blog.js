@@ -100,6 +100,9 @@ const Blog = function() {
     return (
       <div className="d-flex flex-column flex-grow-1">
         <div className="d-flex flex-column flex-grow-1">
+          {posts.length === 0 ? (
+            <p>No blog posts have been posted yet.</p>
+          ) : null}
           {posts.map((post) => (
             <div key={uuidv4()}>
               <Post post={post} />

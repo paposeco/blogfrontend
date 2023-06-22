@@ -53,6 +53,7 @@ const Posts = function() {
           New blog post
         </button>
         <h3 className="mt-4">Blog posts:</h3>
+        {posts.length === 0 ? <p>You haven't written any posts yet.</p> : null}
         <ul className="list-group-flush">
           {posts.map((post) => (
             <div key={uuidv4()}>
