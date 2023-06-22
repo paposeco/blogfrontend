@@ -63,7 +63,7 @@ const EditPost = function() {
   };
   return (
     <div>
-      <h2>New Post</h2>
+      <h2>Edit Post</h2>
       <form onSubmit={handlerOfSubmit}>
         <label htmlFor="title" className="form-label">
           Title:
