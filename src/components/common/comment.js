@@ -6,7 +6,7 @@ const Comment = function(props) {
   const editorOrBlog = location.pathname.includes("editor") ? true : false;
 
   return (
-    <li className="list-group-item mb-2" key={props.commentinfo._id}>
+    <li className="list-group-item mb-2">
       {props.commentinfo.reader_email !== undefined ? (
         <p>
           <i className="las la-comment-alt"></i>

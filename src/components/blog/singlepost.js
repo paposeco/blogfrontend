@@ -49,7 +49,7 @@ const SinglePost = function() {
       setFetchingData(false);
       fetchData();
     }
-  }, []);
+  }, [fetchingData]);
 
   const createParagraphs = function(postcontent) {
     const paragraphArray = postcontent.content.split("\n");
@@ -101,7 +101,7 @@ const SinglePost = function() {
       if (response.status === 201) {
         setFetchingData(true);
         setShowCommentBox(false);
-        navigate(`/posts/${postID}`);
+        navigate(`/blog/posts/${postID}`);
       }
     } catch (err) {
       console.log(err);
@@ -180,7 +180,9 @@ const SinglePost = function() {
         {comments.length === 0 ? <p>No comments yet.</p> : null}
         <ul className="list-group-flush">
           {comments.map((comment) => (
-            <Comment commentinfo={comment} />
+            <div key={uuidv4()}>
+              <Comment commentinfo={comment} />
+            </div>
           ))}
         </ul>
       </div>
