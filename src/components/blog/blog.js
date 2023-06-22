@@ -15,6 +15,10 @@ const Blog = function() {
   const [currentPage, setCurrentPage] = useState("");
 
   useEffect(() => {
+    document.title = "More Oranges";
+  });
+  
+  useEffect(() => {
     setDataFetched(false);
     const pagenumber = location.pathname[location.pathname.length - 1];
     if (pagenumber === "/") {
