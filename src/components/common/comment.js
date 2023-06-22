@@ -5,6 +5,10 @@ const Comment = function(props) {
   const location = useLocation();
   const editorOrBlog = location.pathname.includes("editor") ? true : false;
 
+  const deleteThisComment = function(event) {
+    props.deleteComment(event.currentTarget.dataset.commentid);
+  };
+
   return (
     <li className="list-group-item mb-2">
       {props.commentinfo.reader_email !== undefined ? (
@@ -28,7 +32,7 @@ const Comment = function(props) {
       {editorOrBlog ? (
         <button
           className="btn btn-secondary mb-2 mx-2"
-          onClick={props.deleteComment}
+          onClick={deleteThisComment}
           data-commentid={props.commentinfo._id}
         >
           <i className="las la-trash"></i>

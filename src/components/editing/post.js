@@ -56,7 +56,7 @@ const PostOnEditor = function() {
     }
   }, [dataFetched, postID, token]);
 
-  const deleteComment = async function(event) {
+  const deleteComment = async function(commentid) {
     const fetchData = async function() {
       try {
         const response = await fetch(
@@ -77,10 +77,11 @@ const PostOnEditor = function() {
         }
       } catch (err) { }
     };
-    if (event.target.dataset.commentid !== undefined) {
+
+    if (commentid !== undefined) {
       try {
         const response = await fetch(
-          `https://blogapi-production-7add.up.railway.app/editor/posts/${postID}/comments/${event.target.dataset.commentid}`,
+          `https://blogapi-production-7add.up.railway.app/editor/posts/${postID}/comments/${commentid}`,
           {
             method: "DELETE",
             headers: {
