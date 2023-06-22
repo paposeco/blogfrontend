@@ -23,20 +23,20 @@ const Header = function(props) {
 
   if (!props.logged) {
     return (
-      <nav className="navbar navbar-expand-sm w-100 rounded bg-light">
+      <nav className="navbar navbar-nav navbar-expand-sm w-100 rounded navbarfull">
         <div className="w-100 container-fluid">
           <ul className="navbar-nav d-flex w-100">
-            <li className="nav-item">
+            <li className="nav-item bg-light px-2 mb-2 rounded">
               <Link className={`nav-link ${blogactive}`} to="/">
-                Blog
+                Home
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item bg-light px-2 mb-2 rounded">
               <Link className={`nav-link ${editoractive}`} to="/editor/login">
                 Login
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item bg-light px-2 mb-2 rounded">
               <Link
                 className={`nav-link ${editoractive}`}
                 to="/editor/createuser"
@@ -50,15 +50,15 @@ const Header = function(props) {
     );
   } else {
     return (
-      <nav className="navbar navbar-expand-sm w-100 rounded bg-light">
+      <nav className="navbar navbar-nav navbar-expand-sm w-100 rounded navbarfull">
         <div className="w-100 container-fluid">
           <ul className="navbar-nav d-flex w-100">
-            <li className="nav-item">
+            <li className="nav-item bg-light px-2 mb-2 rounded">
               <Link className={`nav-link ${blogactive}`} to="/">
-                Blog
+                Home
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item bg-light mb-1 px-2 rounded">
               <Link className={`nav-link ${editoractive}`} to="/editor/posts">
                 Editor
               </Link>
@@ -66,7 +66,7 @@ const Header = function(props) {
             <div className="d-flex flex-grow-1 justify-content-end">
               <p className="navbar-text pe-2 mb-0 me-1">Hi {props.author}</p>
               <button
-                className="btn btn-primary text-white fw-bold fs-3 px-1 py-0"
+                className="btn btn-primary text-white fw-bold fs-4 px-1 py-0 logoutbutton"
                 onClick={logout}
               >
                 <i className="las la-sign-out-alt"></i>

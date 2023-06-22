@@ -34,6 +34,12 @@ $pagination-hover-color: white;
     width: 150px;
 }
 
+@include media-breakpoint-up(sm){
+    .navbarfull{
+        background-color: #ffd700 !important;
+    }
+}
+
 @include media-breakpoint-up(md){
     .orangesize{
         width: 75px;
@@ -41,6 +47,7 @@ $pagination-hover-color: white;
     .loginform{
         width: 50%;
     }
+
 }
 
 @include media-breakpoint-up(lg){
@@ -77,4 +84,7 @@ h1,h2,h3,h4,h5{
     font-weight: 700;
 }
 
-
+.logoutbutton{
+    height: 40px;
+    margin-top: 3px;
+}
