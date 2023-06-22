@@ -51,7 +51,7 @@ const Blog = function() {
   }, [currentPage]);
 
   const createPaginationComponentList = function(totalposts) {
-    const pages = Math.floor(totalposts / 6);
+    const pages = Math.floor(totalposts / 4);
     const currpage = location.pathname[location.pathname.length - 1];
     let componentsarray = [];
     for (let i = 0; i < pages + 1; i++) {
