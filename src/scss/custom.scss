@@ -34,9 +34,20 @@ $pagination-hover-color: white;
     width: 150px;
 }
 
+.navbaritem{
+    width: 75%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 @include media-breakpoint-up(sm){
     .navbarfull{
         background-color: #ffd700 !important;
+    }
+    .navbaritem{
+        width: min-content !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
     }
 }
 
@@ -58,9 +69,16 @@ $pagination-hover-color: white;
     .orangesize{
         width: 100px;
     }
-        .loginform{
-            width: 25%;
-        }
+    .loginform{
+        width: 25%;
+    }
+}
+
+@include media-breakpoint-up(xl){
+    .insidecontent{
+        width: 75%;
+        margin: auto !important;
+    }
 }
 
 

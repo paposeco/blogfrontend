@@ -16,9 +16,11 @@ const SinglePost = function() {
   const [readerUsername, setReaderUsername] = useState("");
   const [readerEmail, setReaderEmail] = useState("");
   const [comment, setComment] = useState("");
+  const [showAddComment, setShowAddComment] = useState(true);
 
   const showbox = function() {
     setShowCommentBox(true);
+    setShowAddComment(false);
   };
 
   useEffect(() => {
@@ -107,6 +109,7 @@ const SinglePost = function() {
       if (response.status === 201) {
         setFetchingData(true);
         setShowCommentBox(false);
+        setShowAddComment(true);
         navigate(`/blog/posts/${postID}`);
       }
     } catch (err) {
@@ -133,9 +136,11 @@ const SinglePost = function() {
           </div>
         </div>
         <div>
-          <button onClick={showbox} className="btn btn-primary  text-white">
-            Add comment
-          </button>
+          {showAddComment ? (
+            <button onClick={showbox} className="btn btn-primary text-white">
+              Add comment
+            </button>
+          ) : null}
         </div>
 
         {showCommentBox ? (

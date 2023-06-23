@@ -25,18 +25,18 @@ const Header = function(props) {
     return (
       <nav className="navbar navbar-nav navbar-expand-sm w-100 rounded navbarfull">
         <div className="w-100 container-fluid">
-          <ul className="navbar-nav d-flex w-100">
-            <li className="nav-item bg-light px-2 mb-2 rounded">
+          <ul className="navbar-nav d-flex w-100 text-center text-sm-start">
+            <li className="nav-item bg-light px-2 mb-2 rounded navbaritem">
               <Link className={`nav-link ${blogactive}`} to="/">
                 Home
               </Link>
             </li>
-            <li className="nav-item bg-light px-2 mb-2 rounded">
+            <li className="nav-item bg-light px-2 mb-2 rounded navbaritem">
               <Link className={`nav-link ${editoractive}`} to="/editor/login">
                 Login
               </Link>
             </li>
-            <li className="nav-item bg-light px-2 mb-2 rounded">
+            <li className="nav-item bg-light px-2 mb-2 rounded navbaritem">
               <Link
                 className={`nav-link ${editoractive}`}
                 to="/editor/createuser"
@@ -52,18 +52,18 @@ const Header = function(props) {
     return (
       <nav className="navbar navbar-nav navbar-expand-sm w-100 rounded navbarfull">
         <div className="w-100 container-fluid">
-          <ul className="navbar-nav d-flex w-100">
-            <li className="nav-item bg-light px-2 mb-2 rounded">
+          <ul className="navbar-nav d-flex w-100 text-center text-sm-start">
+            <li className="nav-item bg-light px-2 mb-2 rounded navbaritem">
               <Link className={`nav-link ${blogactive}`} to="/">
                 Home
               </Link>
             </li>
-            <li className="nav-item bg-light mb-1 px-2 rounded">
+            <li className="nav-item bg-light mb-2 px-2 rounded navbaritem">
               <Link className={`nav-link ${editoractive}`} to="/editor/posts">
                 Editor
               </Link>
             </li>
-            <div className="d-flex flex-grow-1 justify-content-end">
+            <div className="d-flex flex-grow-1 justify-content-end navbaritem">
               <p className="navbar-text pe-2 mb-0 me-1">Hi {props.author}</p>
               <button
                 className="btn btn-primary text-white fw-bold fs-4 px-1 py-0 logoutbutton"
